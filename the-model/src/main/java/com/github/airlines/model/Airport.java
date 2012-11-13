@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  * @since 11/11/12 8:35 PM
  */
 @Entity
+@Table(name = "airports")
 public class Airport {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
