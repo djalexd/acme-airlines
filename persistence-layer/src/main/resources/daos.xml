@@ -10,9 +10,14 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
+    <!-- used to hook custom DAO method implementations -->
     <jpa:repositories
             base-package="com.github.airlines.dao"
             entity-manager-factory-ref="entityManagerFactory"
-            transaction-manager-ref="txManager" />
+            transaction-manager-ref="txManager"
+            repository-impl-postfix="JPA"
+            named-queries-location="/META-INF/jpa-named-queries.properties"/>
+
+    <!--<context:component-scan base-package="com.github.airlines.dao" />-->
 
 </beans>

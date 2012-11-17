@@ -34,24 +34,13 @@ public class AirportDaoTest {
     @Autowired
     AirportDao airportDao;
 
-/*
-    @Before
-    public void setupAirportDao() throws Exception {
-        airportDao = new AirportDaoJPA(factory.createEntityManager());
-    }
-
-    @After
-    public void tearDownAirportDao() {
-        airportDao = null;
-    }
-*/
 
     @Ignore
     @Test(expected = NullPointerException.class)
     public void should_throw_NPE_for_null_name() {
         // when
         // then
-        airportDao.findByName(null);
+        airportDao.byName(null);
         // assert - built-in
     }
 
@@ -60,7 +49,7 @@ public class AirportDaoTest {
     public void should_throw_illegalArgumentException_for_empty_name() {
         // when
         // then
-        airportDao.findByName("");
+        airportDao.byName("");
         // assert - built-in
     }
 
@@ -72,7 +61,7 @@ public class AirportDaoTest {
         airportDao.save(airport);
 
         // then
-        final Airport found = airportDao.findByName("Some awesome airport");
+        final Airport found = airportDao.byName("Some awesome airport");
         // assert
         // TODO
     }
@@ -80,11 +69,11 @@ public class AirportDaoTest {
     @Test
     public void should_find_airport_in_range() {
         // when
-        airportDao.save(new Airport("Fiji", fijiPosition()));
+        DetailedPosition fijiPosition = fijiPosition();
+        airportDao.save(new Airport("Fiji", fijiPosition));
         // then
-        List<Airport> airports = airportDao.findAirportsInRange(
-                fijiPosition().getLatitude(),
-                fijiPosition().getLongitude(), 2.0);
+
+        List<Airport> airports = airportDao.determineAirportsInRange(fijiPosition.getLatitude(), fijiPosition.getLongitude(), 2.0);
         // assert
         Assertions.assertThat(airports).isNotNull().isNotEmpty().hasSize(1);
     }
@@ -94,7 +83,7 @@ public class AirportDaoTest {
         // when
         airportDao.save(new Airport("Fiji", fijiPosition()));
         // then
-        List<Airport> airports = airportDao.findAirportsInRange(BigDecimal.ZERO, BigDecimal.ONE, 7.0);
+        List<Airport> airports = airportDao.determineAirportsInRange(BigDecimal.ZERO, BigDecimal.ONE, 7.0);
         // assert
         Assertions.assertThat(airports).isNotNull().isEmpty();
     }
