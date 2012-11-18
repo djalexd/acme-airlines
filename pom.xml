@@ -33,6 +33,7 @@
         <mockito.version>1.9.5-rc1</mockito.version>
         <hibernate-em.version>3.6.10.Final</hibernate-em.version>
         <hsqldb.version>2.2.8</hsqldb.version>
+        <clover.version>3.1.4</clover.version>
     </properties>
 
     <dependencyManagement>
@@ -188,6 +189,17 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+
+
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-clover2-plugin</artifactId>
+                <version>${clover.version}</version>
+                <configuration>
+                    <contextFilters>property</contextFilters>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
