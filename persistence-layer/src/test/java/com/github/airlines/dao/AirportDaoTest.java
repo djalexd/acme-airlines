@@ -47,7 +47,7 @@ public class AirportDaoTest extends BaseDaoTest {
         // then
         final Airport found = airportDao.findByName("Some awesome airport");
         // assert
-        // TODO
+        Assertions.assertThat(found).isNotNull();
     }
 
     @Test

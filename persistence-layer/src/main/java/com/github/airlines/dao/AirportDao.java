@@ -1,6 +1,10 @@
 package com.github.airlines.dao;
 
 import com.github.airlines.model.Airport;
+import com.github.airlines.model.Flight;
+import org.joda.time.DateTime;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,4 +43,29 @@ public interface AirportDao extends JpaRepository<Airport, Integer> {
     @Transactional(readOnly = true)
     @Query(name = "findAirportsInRange")
     List<Airport> findAirportsInRange(BigDecimal latitude, BigDecimal longitude, Double range);
+
+
+    /**
+     * Find all flights that take off from this airport.
+     * @param paged
+     * @param airport
+     * @param dayMonthYearStart
+     * @param dayMonthYearEnd
+     * @return
+     */
+    @Transactional(readOnly = true)
+    @Query(name = "findFlightsFromThisAirportOn")
+    Page<Flight> findFlightsFromThisAirportOn(Pageable paged, Airport airport, DateTime dayMonthYearStart, DateTime dayMonthYearEnd);
+
+    /**
+     * Find flights that land on this airport on a given day.
+     * @param paged
+     * @param airport
+     * @param dayMonthYearStart
+     * @param dayMonthYearEnd
+     * @return
+     */
+    @Transactional(readOnly = true)
+    @Query(name = "findFlightsToThisAirportOn")
+    Page<Flight> findFlightsToThisAirportOn(Pageable paged, Airport airport, DateTime dayMonthYearStart, DateTime dayMonthYearEnd);
 }

@@ -16,8 +16,18 @@ public class AirportObjs {
         return new Airport("Mars", someStaticLocation());
     }
 
+    public static Airport aDifferentAirport() {
+        return new Airport("Venus", someRandomLocation());
+    }
+
 
     private static DetailedPosition someStaticLocation() {
         return new DetailedPosition(BigDecimal.ONE, BigDecimal.valueOf(15));
+    }
+
+    private static DetailedPosition someRandomLocation() {
+        return new DetailedPosition(
+                BigDecimal.valueOf(Math.random() * 1024),
+                BigDecimal.valueOf(Math.random() * 1024));
     }
 }

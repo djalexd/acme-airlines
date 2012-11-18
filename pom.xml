@@ -30,6 +30,9 @@
         <logback.version>1.0.7</logback.version>
         <fest-assert.version>2.0M7</fest-assert.version>
         <joda.version>2.1</joda.version>
+        <mockito.version>1.9.5-rc1</mockito.version>
+        <hibernate-em.version>3.6.10.Final</hibernate-em.version>
+        <hsqldb.version>2.2.8</hsqldb.version>
     </properties>
 
     <dependencyManagement>
@@ -110,6 +113,13 @@
                 <version>${fest-assert.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -18,6 +18,7 @@
             repository-impl-postfix="JPA"
             named-queries-location="/META-INF/jpa-named-queries.properties"/>
 
-    <!--<context:component-scan base-package="com.github.airlines.dao" />-->
+    <!-- translate exceptions to Spring Data ones -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
 </beans>

@@ -54,11 +54,7 @@
 
     </dependencies>
 
-
-
     <properties>
-        <hibernate-em.version>3.6.10.Final</hibernate-em.version>
-        <hsqldb.version>2.2.8</hsqldb.version>
     </properties>
 
 </project>
