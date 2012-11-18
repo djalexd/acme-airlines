@@ -5,11 +5,7 @@ import com.github.airlines.model.DetailedPosition;
 import org.fest.assertions.api.Assertions;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,29 +14,17 @@ import java.util.List;
  * @author alex.dobjanschi
  * @since 11/11/12 9:24 PM
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-        "classpath:spring-entityManager.xml", "classpath:daos.xml"
-})
-/*
-@TestExecutionListeners({
-        DependencyInjectionTestExecutionListener.class,
-        TransactionalTestExecutionListener.class
-})
-*/
-@Transactional(value = "txManager")
-public class AirportDaoTest {
+public class AirportDaoTest extends BaseDaoTest {
 
     @Autowired
     AirportDao airportDao;
-
 
     @Ignore
     @Test(expected = NullPointerException.class)
     public void should_throw_NPE_for_null_name() {
         // when
         // then
-        airportDao.byName(null);
+        airportDao.findByName(null);
         // assert - built-in
     }
 
@@ -49,7 +33,7 @@ public class AirportDaoTest {
     public void should_throw_illegalArgumentException_for_empty_name() {
         // when
         // then
-        airportDao.byName("");
+        airportDao.findByName("");
         // assert - built-in
     }
 
@@ -61,7 +45,7 @@ public class AirportDaoTest {
         airportDao.save(airport);
 
         // then
-        final Airport found = airportDao.byName("Some awesome airport");
+        final Airport found = airportDao.findByName("Some awesome airport");
         // assert
         // TODO
     }
@@ -73,7 +57,7 @@ public class AirportDaoTest {
         airportDao.save(new Airport("Fiji", fijiPosition));
         // then
 
-        List<Airport> airports = airportDao.determineAirportsInRange(fijiPosition.getLatitude(), fijiPosition.getLongitude(), 2.0);
+        List<Airport> airports = airportDao.findAirportsInRange(fijiPosition.getLatitude(), fijiPosition.getLongitude(), 2.0);
         // assert
         Assertions.assertThat(airports).isNotNull().isNotEmpty().hasSize(1);
     }
@@ -83,7 +67,7 @@ public class AirportDaoTest {
         // when
         airportDao.save(new Airport("Fiji", fijiPosition()));
         // then
-        List<Airport> airports = airportDao.determineAirportsInRange(BigDecimal.ZERO, BigDecimal.ONE, 7.0);
+        List<Airport> airports = airportDao.findAirportsInRange(BigDecimal.ZERO, BigDecimal.ONE, 7.0);
         // assert
         Assertions.assertThat(airports).isNotNull().isEmpty();
     }

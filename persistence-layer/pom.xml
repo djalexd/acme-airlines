@@ -45,6 +45,12 @@
             <version>${hsqldb.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.airlines</groupId>
+            <artifactId>persistence-layer-dbutils</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 

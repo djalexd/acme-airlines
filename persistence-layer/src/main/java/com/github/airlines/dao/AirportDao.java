@@ -27,7 +27,7 @@ public interface AirportDao extends JpaRepository<Airport, Integer> {
      */
     @Transactional(readOnly = true)
     @Query(name = "findAirportByName")
-    Airport byName(@Param("airportName") String name);
+    Airport findByName(@Param("airportName") String name);
 
     /**
      * Finds all airports in a given circle - by specifying the circle position and range.
@@ -38,5 +38,5 @@ public interface AirportDao extends JpaRepository<Airport, Integer> {
      */
     @Transactional(readOnly = true)
     @Query(name = "findAirportsInRange")
-    List<Airport> determineAirportsInRange(BigDecimal latitude, BigDecimal longitude, Double range);
+    List<Airport> findAirportsInRange(BigDecimal latitude, BigDecimal longitude, Double range);
 }

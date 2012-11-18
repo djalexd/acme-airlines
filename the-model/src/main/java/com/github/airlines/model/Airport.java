@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Table(name = "airports")
 public class Airport {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     Integer id;
 
