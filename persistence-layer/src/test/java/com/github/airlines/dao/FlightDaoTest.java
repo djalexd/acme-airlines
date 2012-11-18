@@ -1,6 +1,8 @@
 package com.github.airlines.dao;
 
+import com.github.airlines.model.Airplane;
 import com.github.airlines.model.Airport;
+import com.github.airlines.model.Company;
 import com.github.airlines.model.Flight;
 import org.fest.assertions.api.Assertions;
 import org.joda.time.DateTime;
@@ -13,6 +15,8 @@ import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.test.context.transaction.BeforeTransaction;
 
 import static com.github.airlines.model.utils.AirportObjs.*;
+import static com.github.airlines.model.utils.AirplaneObjs.*;
+import static com.github.airlines.model.utils.CompanyObjs.*;
 
 /**
  * @author alex.dobjanschi
@@ -26,12 +30,22 @@ public class FlightDaoTest extends BaseDaoTest {
     @Autowired
     FlightDao flightDao;
 
+    @Autowired
+    AirplaneDao airplaneDao;
+    @Autowired
+    CompanyDao companyDao;
 
     private Airport from;
     private Airport to;
 
+    private Company company;
+    private Airplane airplane;
+
     @BeforeTransaction
     public void setupAirportsBeforeTransaction() {
+        company = companyDao.save(aCompany());
+        airplane = airplaneDao.save(anAirplane(company));
+
         // create two airports.
         from = airportDao.save(anAirport());
         to = airportDao.save(anAirport());
@@ -42,6 +56,9 @@ public class FlightDaoTest extends BaseDaoTest {
         // Create two airports
         airportDao.delete(from);
         airportDao.delete(to);
+
+        airplaneDao.delete(airplane);
+        companyDao.delete(company);
     }
 
 
@@ -118,6 +135,6 @@ public class FlightDaoTest extends BaseDaoTest {
     }
 
     private Flight createAFlight() {
-        return flightDao.save(new Flight(from, to, DateTime.now(), Duration.standardMinutes(60)));
+        return flightDao.save(new Flight(airplane, from, to, DateTime.now(), Duration.standardMinutes(60)));
     }
 }

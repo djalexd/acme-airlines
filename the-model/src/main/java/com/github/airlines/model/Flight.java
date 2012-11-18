@@ -35,16 +35,22 @@ public class Flight {
     @Column
     Duration durationInMinutes;
 
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "airplaneId")
+    Airplane airplane;
+
     public Flight() {}
-    public Flight(Integer id, Airport fromAirport, Airport toAirport, DateTime fromTimeGMT, Duration durationInMinutes) {
+    public Flight(Integer id, Airplane airplane, Airport fromAirport, Airport toAirport, DateTime fromTimeGMT, Duration durationInMinutes) {
         this.id = id;
+        this.airplane = airplane;
         this.fromAirport = fromAirport;
         this.toAirport = toAirport;
         this.fromTimeGMT = fromTimeGMT;
         this.durationInMinutes = durationInMinutes;
     }
 
-    public Flight(Airport fromAirport, Airport toAirport, DateTime fromTimeGMT, Duration durationInMinutes) {
+    public Flight(Airplane airplane, Airport fromAirport, Airport toAirport, DateTime fromTimeGMT, Duration durationInMinutes) {
+        this.airplane = airplane;
         this.fromAirport = fromAirport;
         this.toAirport = toAirport;
         this.fromTimeGMT = fromTimeGMT;
@@ -92,10 +98,19 @@ public class Flight {
         this.durationInMinutes = durationInMinutes;
     }
 
+    public Airplane getAirplane() {
+        return airplane;
+    }
+
+    public void setAirplane(Airplane airplane) {
+        this.airplane = airplane;
+    }
+
     @Override
     public String toString() {
         return "Flight{" +
                 "id=" + id +
+                ", airplane=" + airplane +
                 ", fromAirport=" + fromAirport +
                 ", toAirport=" + toAirport +
                 ", fromTimeGMT=" + fromTimeGMT +

@@ -1,8 +1,12 @@
 package com.github.airlines.services;
 
+import com.github.airlines.dao.AirplaneDao;
 import com.github.airlines.dao.AirportDao;
+import com.github.airlines.dao.CompanyDao;
 import com.github.airlines.dao.FlightDao;
+import com.github.airlines.model.Airplane;
 import com.github.airlines.model.Airport;
+import com.github.airlines.model.Company;
 import com.github.airlines.model.Flight;
 import com.github.airlines.model.utils.AirportObjs;
 import org.fest.assertions.api.Assertions;
@@ -13,6 +17,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+import static com.github.airlines.model.utils.AirplaneObjs.anAirplane;
+import static com.github.airlines.model.utils.CompanyObjs.aCompany;
 
 /**
  * @author alex.dobjanschi
@@ -27,6 +34,10 @@ public class AirportServiceIT extends AbstractServiceIT {
     AirportDao airportDao;
     @Autowired
     FlightDao flightDao;
+    @Autowired
+    AirplaneDao airplaneDao;
+    @Autowired
+    CompanyDao companyDao;
 
     @Test
     public void should_list_airports() {
@@ -44,8 +55,12 @@ public class AirportServiceIT extends AbstractServiceIT {
         // when - create a couple of airports and a flights
         Airport from = airportDao.save(AirportObjs.anAirport());
         Airport to = airportDao.save(AirportObjs.aDifferentAirport());
+
+        Company company = companyDao.save(aCompany());
+        Airplane airplane = airplaneDao.save(anAirplane(company));
+
         flightDao.save(new Flight(
-                from, to,
+                airplane, from, to,
                 aDayIn2010(), Duration.standardMinutes(20)));
         // then - look for that flight in given day.
         Page<Flight> flights = airportService.listFlightsAirportFrom(
@@ -59,8 +74,12 @@ public class AirportServiceIT extends AbstractServiceIT {
         // when - create a couple of airports and a flights
         Airport from = airportDao.save(AirportObjs.anAirport());
         Airport to = airportDao.save(AirportObjs.aDifferentAirport());
+
+        Company company = companyDao.save(aCompany());
+        Airplane airplane = airplaneDao.save(anAirplane(company));
+
         flightDao.save(new Flight(
-                from, to,
+                airplane, from, to,
                 aDayIn2010(), Duration.standardMinutes(20)));
         // then - look for that flight in given day.
         Page<Flight> flights = airportService.listFlightsAirportTo(
