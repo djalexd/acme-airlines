@@ -8,8 +8,14 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>persistence-layer</artifactId>
+
+    <description>
+        This module contains DAO definitions. For running in production
+        environment, you need to include a module or specify a location
+        for 'dao.properties' (for instance, postgres persistence is
+        supported by 'persistence-layer-postgres' module).
+    </description>
 
     <dependencies>
 
