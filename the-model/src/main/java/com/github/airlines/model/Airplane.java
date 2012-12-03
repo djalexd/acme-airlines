@@ -39,4 +39,56 @@ public class Airplane {
         this.mileage = mileage;
         this.passengerCapacity = passengerCapacity;
     }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Company getOwnedBy() {
+        return ownedBy;
+    }
+
+    public void setOwnedBy(Company ownedBy) {
+        this.ownedBy = ownedBy;
+    }
+
+    public DateTime getOwnedSince() {
+        return ownedSince;
+    }
+
+    public void setOwnedSince(DateTime ownedSince) {
+        this.ownedSince = ownedSince;
+    }
+
+    public BigDecimal getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(BigDecimal mileage) {
+        this.mileage = mileage;
+    }
+
+    public Integer getPassengerCapacity() {
+        return passengerCapacity;
+    }
+
+    public void setPassengerCapacity(Integer passengerCapacity) {
+        this.passengerCapacity = passengerCapacity;
+    }
+
+    @Override
+    public String toString() {
+        return "Airplane{" +
+                "id=" + id +
+                ", ownedBy=" + ownedBy +
+                ", ownedSince=" + ownedSince +
+                ", mileage=" + mileage +
+                ", passengerCapacity=" + passengerCapacity +
+                '}';
+    }
 }
