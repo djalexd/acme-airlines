@@ -16,7 +16,7 @@
             entity-manager-factory-ref="entityManagerFactory"
             transaction-manager-ref="txManager"
             repository-impl-postfix="JPA"
-            named-queries-location="/META-INF/jpa-named-queries.properties"/>
+            named-queries-location="classpath:/META-INF/jpa-named-queries.properties"/>
 
     <!-- translate exceptions to Spring Data ones -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
