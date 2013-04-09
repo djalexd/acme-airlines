@@ -19,7 +19,8 @@ public class Airplane {
     @Id
     Integer id;
 
-    @ManyToOne(targetEntity = Company.class, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owned_by_company_id")
     Company ownedBy;
 
     @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
